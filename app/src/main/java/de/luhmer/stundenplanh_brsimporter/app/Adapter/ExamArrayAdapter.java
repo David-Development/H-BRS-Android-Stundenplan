@@ -27,7 +27,7 @@ public class ExamArrayAdapter extends ArrayAdapter<ExamItem> {
     LayoutInflater inflater;
 
     /* here we must override the constructor for ArrayAdapter
-    * the only variable we care about now is ArrayList<Item> objects,
+    * the only variable we care about now is ArrayList<ExamItem> objects,
     * because it is the list of objects we want to display.
     */
     public ExamArrayAdapter(Context context, int textViewResourceId, List<ExamItem> items) {
@@ -63,7 +63,6 @@ public class ExamArrayAdapter extends ArrayAdapter<ExamItem> {
             viewHolder.tvDescTop.setText(entry.examId + " - Versuch: " + entry.versuch);
             viewHolder.tvDesc.setText(entry.fachName);
             viewHolder.tvDescBottom.setText("Note: " + entry.note + " - " + entry.credits + "CP");
-            //viewHolder.ll_listItem.setBackgroundColor(getContext().getResources().getColor(colorId));
 
             viewHolder.img_type.setImageResource(getImageResourceForExamStatus(entry));
         }
@@ -85,7 +84,6 @@ public class ExamArrayAdapter extends ArrayAdapter<ExamItem> {
     // our ViewHolder.
     // caches our TextView
     static class ViewHolderItem {
-        @InjectView(R.id.ll_listItem) LinearLayout ll_listItem;
         @InjectView(R.id.img_type) ImageView img_type;
         @InjectView(R.id.tv_date) TextView tvDate;
         @InjectView(R.id.tv_desc_top) TextView tvDescTop;

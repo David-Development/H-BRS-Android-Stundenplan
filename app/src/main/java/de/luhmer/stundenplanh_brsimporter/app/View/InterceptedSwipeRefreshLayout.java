@@ -65,26 +65,4 @@ public class InterceptedSwipeRefreshLayout extends SwipeRefreshLayout {
 
         return super.onInterceptTouchEvent(event);
     }
-
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-
-
-        Log.v(TAG, "Date: " + ttFragment.getSelectedDate());
-        //Log.v(TAG, "Position: " + ttFragment.getSelectedListView().getFirstVisiblePosition());
-        //Log.v(TAG, "Top: " + ttFragment.getSelectedListView().getChildAt(0).getTop());
-
-        if(ttFragment.getSelectedListView().getFirstVisiblePosition() == 0 && (ttFragment.getSelectedListView().getCount() == 0 || ttFragment.getSelectedListView().getChildAt(0).getTop() == 0)) {
-            Log.v(TAG, "Ok");
-            return super.onTouchEvent(ev);
-        } else {
-            Log.v(TAG, "Intercepting");
-
-            //ttFragment.getSelectedListView().onTouchEvent(ev);
-            return false;
-        }
-
-    }
-    */
 }

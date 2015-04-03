@@ -7,8 +7,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,18 +46,13 @@ import de.luhmer.stundenplanh_brsimporter.app.Model.TimetableEntry;
 public class TimetableDayFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static final String ARG_DATE_LONG = "ARG_DATE_LONG";
-    private static final String TAG = "TimetableDayFragment";
+    private final String TAG = getClass().getCanonicalName();
 
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    List<TimetableEntry> entries;
+    private List<TimetableEntry> entries;
     private OnFragmentInteractionListener mListener;
+    private Handler handler;
+    private Date mDate;
 
     /**
      * The fragment's ListView/GridView.
@@ -71,21 +64,15 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
     @InjectView(R.id.tv_no_items) TextView tvNoItems;
 
 
-    Handler handler;
-
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private TimetableEntryAdapter mAdapter;
 
-    public static TimetableDayFragment newInstance(/* String param1, String param2, */ long dateInMillis) {
-        //TimetableDayFragment fragment = new TimetableDayFragment(date, context);
+    public static TimetableDayFragment newInstance(long dateInMillis) {
         TimetableDayFragment fragment = new TimetableDayFragment();
-
         Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
         args.putLong(ARG_DATE_LONG, dateInMillis);
         fragment.setArguments(args);
         return fragment;
@@ -98,19 +85,6 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
     public TimetableDayFragment() {
     }
 
-    /*
-    public TimetableDayFragment(Date date, Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            new LoadTimetableEntrysAsyncTask(date, context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-        else {
-            new LoadTimetableEntrysAsyncTask(date, context).execute();
-        }
-    }
-    */
-
-    Date date;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,14 +95,14 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
 
-            date = new Date(getArguments().getLong(ARG_DATE_LONG));
+            mDate = new Date(getArguments().getLong(ARG_DATE_LONG));
             Context context = getActivity();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                new LoadTimetableEntrysAsyncTask(date, context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new LoadTimetableEntrysAsyncTask(mDate, context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
             else {
-                new LoadTimetableEntrysAsyncTask(date, context).execute();
+                new LoadTimetableEntrysAsyncTask(mDate, context).execute();
             }
         }
 
@@ -139,18 +113,16 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
         @Override
         public void run() {
             int count = mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition();
-
             for(int i = 0; i < count; i++)
                 mAdapter.notifyDataSetChanged();
-
-            handler.postDelayed( this, 60 * 1000 );
+            handler.postDelayed(this, 60 * 1000);
         }
     };
 
     @Override
     public void onResume() {
-        int diffDays = 0; //TimetableActivity.getDiffInDaysOfDates(new Date(), date); //TODO THIS LINE IS NEEDED
-        if(diffDays == 0 || diffDays == -1) {
+        int diffDays = TimetableFragment.getDiffInDaysOfDates(new Date(), mDate);
+        if(diffDays == 0) {
             handler = new Handler();
             handler.postDelayed(updateListView, 60 * 1000);
         }
@@ -166,6 +138,10 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
         }
 
         super.onPause();
+    }
+
+    public Date getDate() {
+        return mDate;
     }
 
     private class LoadTimetableEntrysAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -273,7 +249,6 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
     * >Communicating with Other Fragments</a> for more information.
     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
     }
 }

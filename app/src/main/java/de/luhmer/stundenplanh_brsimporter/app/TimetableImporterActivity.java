@@ -441,17 +441,6 @@ public class TimetableImporterActivity extends ActionBarActivity {
                 entryList.add(getTimetableEntryByVEvent(c));
             }
 
-
-            /*
-            // For each VEVENT in the ICS
-            for (Object o : calendar.getComponents("VEVENT")) {
-                VEvent vEvent = (VEvent) o;
-                Component c = (Component) o;
-
-
-                entryList.add(getTimetableEntryByVEvent(vEvent, c));
-            }
-            */
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -563,7 +552,7 @@ public class TimetableImporterActivity extends ActionBarActivity {
         cal.setTime(dateProperty.getDate());
         //cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
         //cal.set(java.util.Calendar.MINUTE, 0);
-        cal.set(java.util.Calendar.HOUR_OF_DAY, hour-1);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, hour);
         cal.set(java.util.Calendar.MINUTE, minute);
         cal.set(java.util.Calendar.SECOND, 0);
 

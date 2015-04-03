@@ -204,10 +204,6 @@ public class TimetableFragment extends Fragment {
         }
     }
 
-    public String getSelectedDate() {
-        return ((TimetableDayFragment) ((TimetablePagerAdapter)mPager.getAdapter()).getItem(mPager.getCurrentItem())).date.toString();
-    }
-
     public AbsListView getSelectedListView() {
         TimetableDayFragment selectedFragment = (TimetableDayFragment) ((TimetablePagerAdapter)mPager.getAdapter()).getItem(mPager.getCurrentItem());
         return selectedFragment.mListView;
@@ -252,7 +248,6 @@ public class TimetableFragment extends Fragment {
 
 
                 getActivity().showDialog(DATE_DIALOG_ID);
-                //onCreateDialog(DATE_DIALOG_ID);
                 break;
 
             case R.id.action_today:
@@ -297,7 +292,7 @@ public class TimetableFragment extends Fragment {
 
             for(Fragment fragment : fm.getFragments()) {
                 if(fragment instanceof  TimetableDayFragment) {
-                    long date = ((TimetableDayFragment)fragment).date.getTime();
+                    long date = ((TimetableDayFragment)fragment).getDate().getTime();
                     items.add(new TimetableFragmentTuple(date, (TimetableDayFragment)fragment));
                 }
             }
@@ -364,61 +359,6 @@ public class TimetableFragment extends Fragment {
         public int getCount() {
             return 365;//One year
         }
-
-        /*
-        @Override
-        public Parcelable saveState() {
-            Bundle state = (Bundle) super.saveState();
-
-            SavedState ss = items.get(0).value.get().SavedState;
-
-            TimetableFragmentTuple[] fss = new TimetableFragmentTuple[items.size()];
-            items.toArray(fss);
-            state.putParcelableArray("states_fragments", fss);
-
-            return state;
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-            Bundle bundle = (Bundle)state;
-            bundle.setClassLoader(loader);
-            Parcelable[] fss = bundle.getParcelableArray("states_fragments");
-            items.clear();
-            if (fss != null) {
-                for (int i=0; i < fss.length; i++) {
-                    items.add((TimetableFragmentTuple) fss[i]);
-                }
-            }
-
-            super.restoreState(state, loader);
-        }
-        */
-
-        /*
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-            if (state != null) {
-                Bundle bundle = (Bundle) state;
-                bundle.setClassLoader(loader);
-                Iterable<String> keys = bundle.keySet();
-                for (String key : keys) {
-                    if (key.startsWith("f")) {
-                        int index = Integer.parseInt(key.substring(1));
-                        Fragment f = getFragmentManager().getFragment(bundle, key);
-                        if (f != null) {
-                            items.add(new TimetableFragmentTuple(1, f));
-                            f.setMenuVisibility(false);
-                        } else {
-                            Log.w(TAG, "Bad fragment at key " + key);
-                        }
-                    }
-                }
-            }
-
-            super.restoreState(state, loader);
-        }
-        */
     }
 
 
@@ -436,9 +376,6 @@ public class TimetableFragment extends Fragment {
 
                     Calendar cal = Calendar.getInstance();
                     cal.set(mYear, mMonth, mDay);
-
-                    //cal.add(Calendar.HOUR, 2);
-                    //cal.add(Calendar.MONTH, -5);
 
                     goToPage(cal.getTime());
                 }

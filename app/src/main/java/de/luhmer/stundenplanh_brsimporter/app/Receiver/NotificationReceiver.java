@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
 import de.luhmer.stundenplanh_brsimporter.app.MainActivity;
 import de.luhmer.stundenplanh_brsimporter.app.R;
@@ -35,7 +36,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         // Build notification
         // Actions are just fake
-        Notification noti = new Notification.Builder(context)
+        Notification noti = new NotificationCompat.Builder(context)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_launcher)

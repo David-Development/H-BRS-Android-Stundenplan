@@ -99,10 +99,6 @@
             android:label="@string/title_activity_sync_interval_selector" >
         </activity>
         <activity
-            android:name=".TimetableSelectGroupActivity"
-            android:label="@string/title_activity_timetable_select_group" >
-        </activity>
-        <activity
             android:name=".TimetableLoginActivity"
             android:label="@string/title_activity_timetable_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >

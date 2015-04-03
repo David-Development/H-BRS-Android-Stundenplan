@@ -173,6 +173,7 @@ public class ExamParser {
         return examRegItems;
     }
 
+    /*
     public static float ParseAvgGrade(String urlToPage) throws UnauthorizedException, IOException {
         float grade = 0;
 
@@ -192,7 +193,9 @@ public class ExamParser {
         return grade;
     }
 
+
     static Pattern patternParseAvgGrade = Pattern.compile("<a href=\"(.*?)\">(.*?)<", Pattern.DOTALL | Pattern.MULTILINE);//TODO this regex is not correct!!!
+    */
 
     static Pattern patternParseLinks = Pattern.compile("<a href=\"(.*?)\">(.*?)<", Pattern.DOTALL | Pattern.MULTILINE);
 
@@ -261,11 +264,11 @@ public class ExamParser {
 
     public static String findSingleValue(Pattern pattern, String needle) {
         Matcher m = pattern.matcher(needle);
-        return (m.find()) ? m.group(1) : "";//null;
+        return (m.find()) ? m.group(1) : "";
     }
 
     public static String[] extractTables(String page) {
-        List<String> tables = new ArrayList<String>();
+        List<String> tables = new ArrayList<>();
         Matcher m = patternTableOpen.matcher(page);
         while (m.find()) {
             tables.add(m.group(1));
@@ -274,7 +277,7 @@ public class ExamParser {
     }
 
     public static List<ExamItem> handleExamList(String examsList) {
-        List<ExamItem> examItems = new ArrayList<ExamItem>();
+        List<ExamItem> examItems = new ArrayList<>();
 
         Matcher m = patternTable.matcher(examsList);
         if (m.find()) {
@@ -318,7 +321,6 @@ public class ExamParser {
             exam.terminKlausur = formatter.parse(lines[10]);
 
             Log.d(TAG, exam.fachName + " - " + exam.note);
-            //System.out.println(examString);
         } catch (Exception ex) {
             exam = null;
             //ex.printStackTrace();

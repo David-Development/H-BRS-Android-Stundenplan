@@ -26,13 +26,10 @@ import de.luhmer.stundenplanh_brsimporter.app.R;
 public class ProfessorArrayAdapter extends ArrayAdapter<ProfessorEntry> {
     private final String TAG = getClass().getCanonicalName();
 
-    //Integer paintTvDate;
-    //Integer paintTvDesc;
-
     LayoutInflater inflater;
 
     /* here we must override the constructor for ArrayAdapter
-    * the only variable we care about now is ArrayList<Item> objects,
+    * the only variable we care about now is ArrayList<ProfessorEntry> objects,
     * because it is the list of objects we want to display.
     */
     public ProfessorArrayAdapter(Context context, int textViewResourceId, List<ProfessorEntry> items) {
@@ -80,7 +77,6 @@ public class ProfessorArrayAdapter extends ArrayAdapter<ProfessorEntry> {
     }
 
     // our ViewHolder.
-    // caches our TextView
     static class ViewHolderItem {
         @InjectView(R.id.tv_prof_name) TextView tvName;
         @InjectView(R.id.tv_prof_room) TextView tvRoom;

@@ -32,7 +32,7 @@ public class FB02ScheduleArrayAdapter extends ArrayAdapter<FB02ScheduleEntry> {
     LayoutInflater inflater;
 
     /* here we must override the constructor for ArrayAdapter
-    * the only variable we care about now is ArrayList<Item> objects,
+    * the only variable we care about now is ArrayList<FB02ScheduleEntry> objects,
     * because it is the list of objects we want to display.
     */
     public FB02ScheduleArrayAdapter(Context context, int textViewResourceId, List<FB02ScheduleEntry> items) {
@@ -92,7 +92,6 @@ public class FB02ScheduleArrayAdapter extends ArrayAdapter<FB02ScheduleEntry> {
     }
 
     // our ViewHolder.
-    // caches our TextView
     static class ViewHolderItem {
         @InjectView(R.id.tv_date) TextView tvDate;
         @InjectView(R.id.tv_description) TextView tvDesc;

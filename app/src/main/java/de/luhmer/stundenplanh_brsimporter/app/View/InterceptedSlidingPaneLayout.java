@@ -32,14 +32,4 @@ public class InterceptedSlidingPaneLayout extends SlidingPaneLayout {
         }
         return false;
     }
-
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        if (event.getX() < mWidth / 6) {
-            return super.onTouchEvent(event);// here it works as a normal SlidingPaneLayout
-        }
-        return false; // here it returns false so that another event's listener should be called, in your case the MapFragment listener
-    }
-    */
 }
