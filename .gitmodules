@@ -1,0 +1,6 @@
+[submodule "android-donations-lib"]
+	path = android-donations-lib
+	url = https://github.com/dschuermann/android-donations-lib.git
+[submodule "ShowcaseView"]
+	path = ShowcaseView
+	url = https://github.com/David-Development/ShowcaseView.git
