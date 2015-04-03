@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_listItem"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/img_thumb"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:src="@drawable/exam_success" />
+
+
+    <LinearLayout
+        android:layout_toRightOf="@id/img_thumb"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_prof_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prof. Sascha Alda"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="#DE000000"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_prof_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#DE000000"
+            android:text="Room C125"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_toRightOf="@id/img_thumb"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.12"
+        android:background="#000"/>
+
+</RelativeLayout>

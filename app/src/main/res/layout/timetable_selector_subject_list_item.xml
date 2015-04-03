@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_listItem"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/timetable_background_item_default"
+    android:padding="10dp" >
+
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="English for IT"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/timetable_entry_text_color"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
+
+
+</LinearLayout>

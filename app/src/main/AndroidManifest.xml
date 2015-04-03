@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.luhmer.stundenplanh_brsimporter.app" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TimetableImporterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_timetable_importer" >
+        </activity>
+
+        <!-- Receiver -->
+        <receiver android:name=".Receiver.UpdateReceiver" >
+            <intent-filter>
+                <action android:name="de.luhmer.stundenplanh_brsimporter.UPDATE_REMINDER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".Receiver.BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".Receiver.NotificationReceiver" >
+            <intent-filter>
+                <action android:name="de.luhmer.stundenplanh_brsimporter.SHOW_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".DonationsActivity"
+            android:label="@string/title_activity_donations" >
+        </activity>
+
+        <service
+            android:name=".Service.SisAuthenticatorService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".Service.ExamSyncService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
+
+        <provider
+            android:name=".Provider.ExamSyncProvider"
+            android:authorities="de.luhmer.stundenplanh_brsimporter"
+            android:label="Auto sync"
+            android:syncable="true" >
+        </provider>
+
+        <activity
+            android:name=".Authentication.AuthenticatorActivity"
+            android:label="@string/title_activity_authenticator" >
+        </activity>
+        <activity
+            android:name=".SyncIntervalSelectorActivity"
+            android:label="@string/title_activity_sync_interval_selector" >
+        </activity>
+        <activity
+            android:name=".TimetableSelectGroupActivity"
+            android:label="@string/title_activity_timetable_select_group" >
+        </activity>
+        <activity
+            android:name=".TimetableLoginActivity"
+            android:label="@string/title_activity_timetable_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+</manifest>

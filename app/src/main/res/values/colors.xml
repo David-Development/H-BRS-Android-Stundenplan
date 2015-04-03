@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="timetable_entry_text_color">#ffe7e7e7</color>
+    <color name="timetable_background">#ff202020</color>
+    <color name="timetable_background_item_default">#ff292929</color>
+    <color name="timetable_background_item_passed">#ff290b0e</color>
+    <color name="timetable_background_item_active">#ff112918</color>
+
+    <color name="slider_listview_background_color">#383d43</color>
+</resources>

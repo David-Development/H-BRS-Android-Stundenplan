@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Sync Settings" />
+
+    <PreferenceScreen
+        android:key="account_sync_interval"
+        android:title="Sync Interval"
+        android:summary="Set the sync interval">
+        <intent
+            android:action="de.luhmer.owncloudnewsreader.Preferences.SYNC_INTERVAL"
+            android:targetPackage="de.luhmer.stundenplanh_brsimporter.app"
+            android:targetClass="de.luhmer.stundenplanh_brsimporter.app.SyncIntervalSelectorActivity" />
+    </PreferenceScreen>
+</PreferenceScreen>

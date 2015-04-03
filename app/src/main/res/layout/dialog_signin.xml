@@ -1,0 +1,38 @@
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".LoginActivity"
+	android:id="@+id/login_form"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <EditText
+	        android:id="@+id/username"
+	        android:inputType="textEmailAddress"
+	        style="@style/LoginDialogEditTextStyle"
+	        android:hint="@string/pref_title_username" />
+
+	    <EditText
+	        android:id="@+id/password"
+	        android:inputType="textPassword"
+	        style="@style/LoginDialogEditTextStyle"
+	        android:fontFamily="sans-serif"
+	        android:hint="@string/pref_title_password" />
+
+        <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Please login with your SIS Account." />
+
+        -->
+
+    </LinearLayout>
+</ScrollView>

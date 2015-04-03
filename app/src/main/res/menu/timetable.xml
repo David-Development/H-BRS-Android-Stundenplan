@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.luhmer.stundenplanh_brsimporter.app.TimetableActivity" >
+
+    <!--
+    <item android:id="@+id/action_login"
+        android:title="@string/action_login"
+        app:showAsAction="never" />
+    -->
+
+
+    <item android:id="@+id/action_import"
+        android:title="@string/action_import"
+        android:icon="@drawable/ic_download"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_jump_to_date"
+        android:title="@string/action_jump_to_date"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_today"
+        android:title="@string/action_today"
+        android:icon="@drawable/ic_menu_today"
+        app:showAsAction="ifRoom" />
+
+
+    <item android:id="@+id/action_remove_items"
+        android:title="@string/action_remove_items"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_donate"
+        android:title="@string/action_donate"
+        app:showAsAction="never" />
+
+</menu>

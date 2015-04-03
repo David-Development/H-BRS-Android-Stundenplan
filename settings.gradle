@@ -1,0 +1,1 @@
+include ':app', 'ShowcaseView:library', 'android-donations-lib:libraries:Donations'
