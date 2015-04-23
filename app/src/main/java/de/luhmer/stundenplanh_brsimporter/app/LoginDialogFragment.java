@@ -35,12 +35,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -80,7 +82,9 @@ public class LoginDialogFragment extends DialogFragment {
 	// UI references.
 	@InjectView(R.id.username) EditText mUsernameView;
 	@InjectView(R.id.password) EditText mPasswordView;
+	@InjectView(R.id.imgView_ShowPassword) ImageView mImageViewShowPwd;
 
+    boolean mPasswordVisible = false;
 
 	ProgressDialog mDialogLogin;
 
@@ -114,6 +118,18 @@ public class LoginDialogFragment extends DialogFragment {
 		this.listener = listener;
 	}
 
+    private View.OnClickListener ImgViewShowPasswordListener = new View.OnClickListener() {
+        @Override
+       public void onClick(View v) {
+            mPasswordVisible = !mPasswordVisible;
+            if(mPasswordVisible) {
+                mPasswordView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                mPasswordView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+        }
+    };
+
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -126,6 +142,9 @@ public class LoginDialogFragment extends DialogFragment {
         LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
         View view = localInflater.inflate(R.layout.dialog_signin, null);
         ButterKnife.inject(this, view);
+
+	    mImageViewShowPwd.setOnClickListener(ImgViewShowPasswordListener);
+
 
         builder.setView(view)
         	/*
