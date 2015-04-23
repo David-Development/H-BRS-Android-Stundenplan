@@ -163,6 +163,7 @@ public class TimetableFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
+
             int currentPage = mPager.getCurrentItem();
             mPager.setAdapter(new TimetablePagerAdapter(getFragmentManager()));
             mPager.setCurrentItem(currentPage);
@@ -246,12 +247,14 @@ public class TimetableFragment extends Fragment {
         public TimetablePagerAdapter(FragmentManager fm) {
             super(fm);
 
+            /*
             for(Fragment fragment : fm.getFragments()) {
                 if(fragment instanceof  TimetableDayFragment) {
                     long date = ((TimetableDayFragment)fragment).getDate().getTime();
                     items.add(new TimetableFragmentTuple(date, (TimetableDayFragment)fragment));
                 }
             }
+            */
         }
 
         @Override
