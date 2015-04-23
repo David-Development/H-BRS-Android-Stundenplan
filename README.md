@@ -37,7 +37,7 @@ That's all. I hope it works for you! If something is not working, please send me
 How to contribute
 ==================================
 - 1) Fork the project on GitHub
-- 2) Clone branch to your computer (git clone --recursive https://github.com/<your GitHub username>/H-BRS-Android-Stundenplan.git)
+- 2) Clone branch to your computer (git clone --recursive https://github.com/YourGitHubUsername/H-BRS-Android-Stundenplan.git)
 - 3) Work on the project
 - 4) Commit changes, push to your fork on GitHub
 - 5) Create a pull-request on GitHub
