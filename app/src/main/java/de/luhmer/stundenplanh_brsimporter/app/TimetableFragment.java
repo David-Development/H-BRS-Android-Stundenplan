@@ -6,13 +6,11 @@ import android.app.Dialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.DatePicker;
 
-import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,44 +48,30 @@ public class TimetableFragment extends Fragment {
     private final String TAG = getClass().getCanonicalName();
     @InjectView(R.id.viewPager) ViewPager mPager;
     @InjectView(R.id.ptr_layout) InterceptedSwipeRefreshLayout swipeRefreshLayout;
-    private Date date;
+    private Date mDate;
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_SECTION_NUMBER = "SECTION_NUMBER";
     private static final String ARG_TIME_LONG = "TIME_LONG";
 
 
+    //Variables for DatePicker
     private int mYear;
     private int mMonth;
     private int mDay;
     public static final int DATE_DIALOG_ID = 0;
 
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
+
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TimetableFragment.
+     * @param time
+     * @param sectionNumber
+     * @return
      */
-    public static TimetableFragment newInstance(String param1, int param2) {
-        TimetableFragment fragment = new TimetableFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_SECTION_NUMBER, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static TimetableFragment newInstance(long time, int sectionNumber) {
         TimetableFragment fragment = new TimetableFragment();
         Bundle args = new Bundle();
@@ -99,7 +82,7 @@ public class TimetableFragment extends Fragment {
     }
 
     public TimetableFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -110,10 +93,7 @@ public class TimetableFragment extends Fragment {
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
-
-            date = new Date(getArguments().getLong(ARG_TIME_LONG));
+            mDate = new Date(getArguments().getLong(ARG_TIME_LONG));
             //SetReminderUpdateTimer(this);
         }
     }
@@ -126,19 +106,6 @@ public class TimetableFragment extends Fragment {
 
         ButterKnife.inject(this, view);
         swipeRefreshLayout.setTimetableFragment(this);
-
-        /*
-        mPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(getSelectedListView().getFirstVisiblePosition() == 0 && (getSelectedListView().getCount() == 0 || getSelectedListView().getChildAt(0).getTop() == 0)) {
-                    Log.v(TAG, "Ok");
-                    return false;
-                }
-                return true;
-            }
-        });
-        */
 
         InitAdapter();
 
@@ -224,16 +191,6 @@ public class TimetableFragment extends Fragment {
     }
 
     public static int TIME_TABLE_IMPORTER_RESULT = 1112;
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == TIME_TABLE_IMPORTER_RESULT) {
-            InitAdapter();
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    */
 
 
     @Override
@@ -259,7 +216,7 @@ public class TimetableFragment extends Fragment {
     }
 
     public void goToTodaysPage() {
-        goToPage(date);
+        goToPage(mDate);
     }
 
     public void goToPage(Date date) {
@@ -284,7 +241,6 @@ public class TimetableFragment extends Fragment {
      * sequence.
      */
     private class TimetablePagerAdapter extends FragmentStatePagerAdapter {
-        //RingBuffer<Long, TimetableDayFragment> items = new RingBuffer(3);
         List<TimetableFragmentTuple> items = new ArrayList<>();
 
         public TimetablePagerAdapter(FragmentManager fm) {
@@ -307,7 +263,7 @@ public class TimetableFragment extends Fragment {
         }
 
         private Date getDateForPosition(int position) {
-            int daysDiffSinceAppStart =  getDiffInDaysOfDates(new Date(), date);
+            int daysDiffSinceAppStart =  getDiffInDaysOfDates(new Date(), mDate);
 
             long millisDiff = (position - 182 + daysDiffSinceAppStart) * TimetableEntry.MILLIS_PER_DAY;
             Date date = new Date(new Date().getTime() + millisDiff);
@@ -316,6 +272,7 @@ public class TimetableFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
+
             Date date = getDateForPosition(position);
             //Log.v(TAG, "Date pre:" + date.toString());
             Calendar cal = Calendar.getInstance();
@@ -330,20 +287,11 @@ public class TimetableFragment extends Fragment {
             //Log.v(TAG, "Date post:" + date.toString());
             //Log.v(TAG, "Date key:" + date.getTime());
 
-            Tuple selected = null;
-            for(Tuple t : items) {
-                if(t.key.equals(date.getTime())) {
-                    selected = t;
-                    break;
-                }
-            }
-
             TimetableDayFragment ttdf = null;
-            if(selected != null) {
-                ttdf = (TimetableDayFragment) (selected.value);
-
-                if(ttdf == null) {
-                    items.remove(selected);
+            for(TimetableFragmentTuple t : items) {
+                if(t.key.equals(date.getTime())) {
+                    ttdf = t.value.get();
+                    break;
                 }
             }
 
@@ -358,6 +306,14 @@ public class TimetableFragment extends Fragment {
         @Override
         public int getCount() {
             return 365;//One year
+        }
+
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            items.remove(getDateForPosition(position));
+
+            super.destroyItem(container, position, object);
         }
     }
 

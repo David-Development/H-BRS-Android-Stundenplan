@@ -57,7 +57,6 @@ public class TimetableDayFragment extends Fragment implements AbsListView.OnItem
     /**
      * The fragment's ListView/GridView.
      */
-    //@InjectView(R.id.fr_layout_tt) FrameLayout mFrameLayoutTimetable;
     @InjectView(android.R.id.list) AbsListView mListView;
     @InjectView(R.id.progressBar) ProgressBar mProgressBar;
     @InjectView(R.id.img_no_items) ImageView imgNoItems;
